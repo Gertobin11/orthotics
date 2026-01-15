@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { PageProps } from './$types.js';
+	import { fly } from 'svelte/transition';
+	import type { PageProps } from './$types.ts';
 
 	let { data }: PageProps = $props();
 
@@ -16,14 +17,20 @@
 	<nav class="mx-auto max-w-7xl px-6 py-4 text-sm text-slate-500">
 		<a href="/" class="hover:text-cyan-600">Home</a>
 		<span class="mx-2">/</span>
-		<a href="/orthotics" class="hover:text-cyan-600">Orthotics</a>
+		<a href="/orthoses" class="hover:text-cyan-600">Orthoses</a>
+		<span class="mx-2">/</span>
+		<a href="/orthoses/{data.category}" class="hover:text-cyan-600">{data.category}</a>
 		<span class="mx-2">/</span>
 		<span class="font-medium text-slate-900">{orthotic.name}</span>
 	</nav>
 
-	<main class="mx-auto max-w-7xl md:px-6 pb-20">
+	<main class="mx-auto max-w-7xl pb-20 md:px-6">
 		<div class="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
-			<div class="sticky top-6 overflow-hidden md:rounded-2xl border border-gray-100 bg-gray-50">
+			<div
+				in:fly={{ x: -400, duration: 400 }}
+				out:fly={{ x: -400, duration: 250 }}
+				class="sticky top-6 overflow-hidden border border-gray-100 bg-gray-50 md:rounded-2xl"
+			>
 				{#if orthotic.imageUrl}
 					<img
 						src={orthotic.imageUrl}
@@ -37,7 +44,11 @@
 				{/if}
 			</div>
 
-			<div class="flex flex-col space-y-6 p-6 md:rounded-2xl bg-white shadow-xl">
+			<div
+				class="flex flex-col space-y-6 bg-white p-6 shadow-xl md:rounded-2xl"
+				in:fly={{ x: 400, duration: 400 }}
+				out:fly={{ x: 400, duration: 250 }}
+			>
 				<div class="border-b border-gray-200 pb-6">
 					<div class="flex items-start justify-between">
 						<div>
@@ -46,7 +57,9 @@
 							>
 								{orthotic.category === 'Prefab' ? 'Off-The-Shelf' : 'Custom Prescription'}
 							</span>
-							<h1 class="text-3xl leading-tight font-bold tracking-tight text-slate-900 md:text-4xl">
+							<h1
+								class="text-3xl leading-tight font-bold tracking-tight text-slate-900 md:text-4xl"
+							>
 								{orthotic.name}
 							</h1>
 						</div>
@@ -147,7 +160,7 @@
 				<div class="mt-auto pt-4">
 					<a
 						href="tel:0867700191"
-						class="group relative flex w-full justify-center rounded-xl border border-transparent bg-cyan-600 px-4 py-4 text-lg font-medium text-white shadow-lg transition-all hover:bg-cyan-800 hover:shadow-xl focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-none"
+						class="group relative flex w-full justify-center rounded-xl border border-transparent bg-cyan-600 px-4 py-4 text-lg font-medium text-white shadow-lg transition-all hover:bg-slate-800 hover:text-white hover:shadow-2xl"
 					>
 						Book Appointment
 						<span class="ml-2 transition-transform group-hover:translate-x-1">→</span>

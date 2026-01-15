@@ -1,14 +1,8 @@
 <script lang="ts">
 	import './layout.css';
 	import { fade } from 'svelte/transition';
-	// import Footer from '$lib/components/Footer.svelte';
-	// import { getFlash } from 'sveltekit-flash-message';
-	import { page } from '$app/state';
-	// import Toast from '$lib/components/Toast.svelte';
-	// import Policies from '$lib/components/Policies.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 	import ConsentContainer from '$lib/components/ConsentContainer.svelte';
-
-	let showPoliicies = $state(false);
 
 	let { children } = $props();
 
@@ -35,44 +29,42 @@
 </svelte:head>
 
 <div class="relative min-h-screen w-full overflow-x-hidden">
-	<nav class="fixed top-0 z-50 w-full bg-white ">
+	<nav class="fixed top-0 z-50 w-full bg-slate-900">
 		<div class="px-4 sm:px-6 lg:px-8">
-			<div class="flex h-16 items-center justify-center ">
-				<div class="hidden w-full justify-between md:flex text-slate-800">
+			<div class="flex h-16 items-center justify-center">
+				<div class="hidden w-full justify-between text-slate-800 md:flex">
 					<div class="=flex items-center justify-center">
-						<a href="/" class="hover:text-primary-100 px-3 py-2 text-3xl font-semibold text-cyan-600  hover:text-cyan-800"
-							>Tralee Orthotics</a
+						<a
+							href="/"
+							class="px-3 py-2 text-3xl font-semibold text-cyan-600 hover:text-cyan-800"
+							><span class="text-white">Tralee </span> Orthotics</a
 						>
 					</div>
 					<div class="flex items-center justify-end gap-6">
-						<a href="/the-experience" class="hover:text-primary-100 text-xl font-medium hover:text-slate-600 hover:underline">HOME</a>
-						<a
-							href="/my-portfolio"
-							class="title hover:text-primary-100 px-3 py-2 font-medium text-xl hover:text-slate-600 hover:underline"
-							>PRODUCTS</a
+						<a href="/" class="text-xl font-medium text-white hover:text-cyan-500"
+							>Home</a
 						>
-						<a
-							href="/about-me"
-							class="title hover:text-primary-100 px-3 py-2 font-medium text-xl  hover:text-slate-600 hover:underline"
-							>FAQ</a
+						<a href="/orthoses" class="text-xl font-medium text-white hover:text-cyan-500"
+							>Orthoses</a
 						>
-						<a
-							href="/contact-me"
-							class="title hover:text-primary-100 px-3 py-2 font-medium text-xl  hover:text-slate-600 hover:underline"
-							>APPOINTMENTS</a
+						<a href="/faq" class="text-xl font-medium text-white hover:text-cyan-500">FAQ</a>
+						<a href="/appointments" class="text-xl font-medium text-white hover:text-cyan-500"
+							>Appointments</a
 						>
 					</div>
 				</div>
 
 				<!-- Mobile Burger Menu Button -->
 				<div class="z-50 flex w-full justify-between md:hidden">
-					<a href="/" class="hover:text-primary-100 px-3 py-2 text-3xl font-medium"
-						><img class="h-12" src="/guerin-logo-whtsm.png" alt="guerin photography logo" /></a
+					<a
+						href="/"
+						class="hover:text-primary-100 px-3 py-2 text-3xl font-semibold text-cyan-600 hover:text-cyan-800"
+						><span class="text-white">Tralee </span> Orthotics</a
 					>
 					<button
 						onclick={toggleMobileMenu}
 						aria-label="Open main menu"
-						class="text-primary-100 inline-flex items-center justify-center rounded-md p-2 hover:bg-gray-200"
+						class="inline-flex items-center justify-center rounded-md p-2 text-cyan-500 hover:bg-gray-200"
 					>
 						<!-- Conditionally render burger or close icon -->
 						{#if !isMobileMenuOpen}
@@ -117,42 +109,33 @@
 		{#if isMobileMenuOpen}
 			<div
 				transition:fade={{ duration: 200 }}
-				class="fixed top-0 right-0 z-40 h-[100vh] w-[100vw] !bg-black p-5 shadow-xl md:hidden"
+				class="fixed top-0 right-0 z-40 h-screen w-screen bg-slate-900 p-5 shadow-xl md:hidden"
 			>
 				<div class="flex h-full w-full flex-col space-y-4 pt-12">
-					<a
+					<hr class="text-cyan-500" />
+                    <a
 						onclick={closeMobileMenu}
 						href="/"
-						class="hover:text-primary-100 flex items-end gap-3 px-3 py-2 text-3xl font-medium"
-					>
-						<p class="title text-primary-500 hover:text-primary-100 text-3xl font-medium">
-							Guerin Photography
-						</p></a
-					>
-					<hr class="text-primary-500" />
-					<a
-						onclick={closeMobileMenu}
-						href="/the-experience"
-						class="title text-primary-500 hover:text-primary-100 block rounded-md px-3 py-2 text-2xl font-medium"
-						>The Experience</a
+						class="title text-white hover:text-cyan-500 block rounded-md px-3 py-2 text-2xl font-medium"
+						>Home</a
 					>
 					<a
 						onclick={closeMobileMenu}
-						href="/my-portfolio"
-						class="title text-primary-500 hover:text-primary-100 block rounded-md px-3 py-2 text-2xl font-medium"
-						>My Portfolio</a
+						href="/orthoses"
+						class="title text-white hover:text-cyan-500 block rounded-md px-3 py-2 text-2xl font-medium"
+						>Orthoses</a
 					>
 					<a
 						onclick={closeMobileMenu}
-						href="/about-me"
-						class="title text-primary-500 hover:text-primary-100 block rounded-md px-3 py-2 text-2xl font-medium"
-						>About Me</a
+						href="/faq"
+						class="title text-white hover:text-cyan-500 block rounded-md px-3 py-2 text-2xl font-medium"
+						>FAQ</a
 					>
 					<a
 						onclick={closeMobileMenu}
-						href="/contact-me"
-						class="title text-primary-500 hover:text-primary-100 block rounded-md px-3 py-2 text-2xl font-medium"
-						>Contact Me</a
+						href="/appointments"
+						class="title text-white hover:text-cyan-500 block rounded-md px-3 py-2 text-2xl font-medium"
+						>Appointments</a
 					>
 				</div>
 			</div>
@@ -162,6 +145,5 @@
 	{@render children?.()}
 </div>
 
-<!-- <Footer bind:show={showPoliicies} />
-<Policies bind:show={showPoliicies} /> -->
+<Footer />
 <ConsentContainer />

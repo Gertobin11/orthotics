@@ -42,6 +42,7 @@
 		"@tailwindcss/forms": "^0.5.10",
 		"@tailwindcss/typography": "^0.5.19",
 		"@tailwindcss/vite": "^4.1.17",
+		"@types/google.maps": "^3.58.1",
 		"@types/node": "^22",
 		"eslint": "^9.39.1",
 		"eslint-config-prettier": "^10.1.8",
@@ -62,6 +63,8 @@
 		"svelte"
 	],
 	"dependencies": {
+		"@googlemaps/js-api-loader": "^2.0.1",
+		"@lucide/svelte": "^0.562.0",
 		"@sanity/client": "^7.14.0",
 		"vanilla-cookieconsent": "^3.1.0"
 	}

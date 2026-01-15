@@ -1,7 +1,8 @@
 import { env } from '$env/dynamic/private';
 import { createClient } from '@sanity/client';
-import type { PageServerLoad } from './$types.js';
+import type { PageServerLoad } from './$types.ts';
 import { error } from '@sveltejs/kit';
+import type * as types from '$lib/types.ts';
 
 export const load: PageServerLoad = async (event) => {
 	const client = createClient({
@@ -12,10 +13,14 @@ export const load: PageServerLoad = async (event) => {
 		useCdn: false
 	});
 
-    const query = `*[_type == "orthotic" && slug.current == $slug][0]{
+	const slug = event.params.slug;
+	const category = event.params.category;
+
+	const query = `*[_type == "orthotic" && slug.current == $slug && category == $category][0]{
     name,
     category,
     price,
+    slug,
     summary,
     "imageUrl": mainImage.asset->url,
     details {
@@ -33,13 +38,17 @@ export const load: PageServerLoad = async (event) => {
     }
   }`;
 
-  const orthotic = await client.fetch(query, { slug: event.params.slug });
+	const orthotic: types.OrthoticProduct | undefined = await client.fetch(query, {
+		slug,
+		category
+	});
 
-  if (!orthotic) {
-    throw error(404, "Orthotic not found");
-  }
+	if (!orthotic) {
+		throw error(404, 'Orthotic not found');
+	}
 
-  return {
-    orthotic
-  };
+	return {
+		orthotic,
+		category
+	};
 };
