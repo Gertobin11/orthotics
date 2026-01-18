@@ -85,13 +85,10 @@
         <h3 class="text-white font-bold mb-6">Opening Hours</h3>
         <ul class="space-y-2 text-sm">
           <li class="flex justify-between border-b border-slate-800 pb-2">
-            <span>Mon / Tue / Thu / Fri</span>
+            <span>Weekdays</span>
             <span class="text-white">8am - 10pm</span>
           </li>
-          <li class="flex justify-between border-b border-slate-800 pb-2">
-            <span>Wednesday</span>
-            <span class="text-slate-500 italic">Closed</span>
-          </li>
+
           <li class="flex justify-between border-b border-slate-800 pb-2">
             <span>Saturday</span>
             <span class="text-white">8am - 2pm</span>

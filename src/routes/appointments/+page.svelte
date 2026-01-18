@@ -44,6 +44,11 @@
 />
 
 <section class="bg-slate-50 py-16 md:py-32">
+    <nav class="mx-auto max-w-7xl py-4 text-sm text-slate-500">
+			<a href="/" class="hover:text-cyan-600">Home</a>
+			<span class="mx-2">/</span>
+			<span class="font-medium text-slate-900">Appointments</span>
+		</nav>
 	<div class="mx-auto mb-12 max-w-3xl px-6 text-center">
 		<div
 			class="mb-6 inline-flex items-center justify-center rounded-full bg-cyan-100 p-3 text-cyan-600"
