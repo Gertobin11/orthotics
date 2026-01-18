@@ -1,4 +1,5 @@
 <script>
+	import MetaTags from '$lib/components/MetaTags.svelte';
 	import { Phone, ArrowRight, Truck, BadgeQuestionMark, CircleCheckBig } from '@lucide/svelte';
 	import { fade } from 'svelte/transition';
 
@@ -19,21 +20,11 @@
 		}
 	];
 
-	const conditions = [
-		'Plantar Fasciitis',
-		'Lower Leg Tendinopathy',
-		'Localized Foot Pain',
-		'Bunions & Hammer Toes',
-		'Heel Pain',
-		'Leg/Knee Pain',
-		'Hip or Back Pain',
-		'Fallen Arches / Flat Feet',
-		'Shin Splints',
-		'Ankle Pain',
-		'High Arches',
-		'Metatarsalgia'
-	];
 </script>
+
+<MetaTags
+	title="Orthotics Range Tralee | Custom & Prefabricated Supports" description="Choose the right support for your feet. We offer medical-grade prefabricated insoles (€90) and bespoke 3D-scanned custom orthotics (€400). Full assessment and fitting included."
+/>
 
 <div
 	class="bg-white font-sans text-slate-600"

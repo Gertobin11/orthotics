@@ -1,4 +1,5 @@
 <script>
+	import MetaTags from '$lib/components/MetaTags.svelte';
 	import { Phone, ArrowRight, Truck, CheckCircle2, Package, ScanLine } from '@lucide/svelte';
 	import { fly } from 'svelte/transition';
 
@@ -14,6 +15,8 @@
 		'Metatarsalgia'
 	];
 </script>
+
+<MetaTags />
 
 <div class="bg-white font-sans text-slate-600">
 	<section class="relative overflow-hidden bg-slate-900 text-white">

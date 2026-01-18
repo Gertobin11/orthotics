@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 	import type { PageProps } from './$types.ts';
+	import MetaTags from '$lib/components/MetaTags.svelte';
 
 	let { data }: PageProps = $props();
 
@@ -12,6 +13,12 @@
 		return text.split('\n').filter((line) => line.trim() !== '');
 	};
 </script>
+
+<MetaTags
+	title="{orthotic.name} | Tralee Orthotics"
+	description="{orthotic.summary.substring(0, 160)}..."
+	image={orthotic.imageUrl}
+/>
 
 <div class="min-h-screen bg-gray-100 pt-16 font-sans text-slate-800 selection:bg-blue-100">
 	<nav class="mx-auto max-w-7xl px-6 py-4 text-sm text-slate-500">
@@ -137,22 +144,6 @@
 									{orthotic.details.default_specs.mid_layer}
 								</div>
 							{/if}
-						</div>
-					</div>
-				{/if}
-
-				{#if orthotic.category === 'Prefab'}
-					<div class="rounded-lg border border-blue-100 bg-blue-50 p-4 text-sm">
-						<h4 class="mb-2 font-bold text-cyan-900">Sizing Guide</h4>
-						<div class="grid grid-cols-1 gap-1 font-mono text-xs text-cyan-600">
-							{#each formatSizing(orthotic.details.description) as line}
-								{#if line.includes('Sizes:') || line.includes('UK:') || line.includes('EU:') || line.includes('US:')}
-									<div class="flex justify-between border-b border-blue-200/50 pb-1 last:border-0">
-										<span>{line.split(':')[0]}</span>
-										<span class="font-bold">{line.split(':')[1]}</span>
-									</div>
-								{/if}
-							{/each}
 						</div>
 					</div>
 				{/if}

@@ -2,21 +2,27 @@
 	import { BadgeQuestionMarkIcon, ChevronDown } from '@lucide/svelte';
 	import { fade } from 'svelte/transition';
 	import type { PageProps } from './$types.js';
+	import MetaTags from '$lib/components/MetaTags.svelte';
 
 	let { data }: PageProps = $props();
 </script>
 
+<MetaTags
+	title="Orthotic FAQs & Pricing | Tralee Orthotics"
+	description="Common questions about foot care in Kerry. Learn the difference between Prefab (€90) and Custom (€400) insoles, see our transparent pricing, and read about break-in periods."
+/>
+
 <div
-	class="min-h-screen bg-white font-sans text-slate-600 "
+	class="min-h-screen bg-white font-sans text-slate-600"
 	in:fade={{ duration: 200 }}
 	out:fade={{ duration: 200 }}
 >
 	<section class="border-b border-slate-200 bg-slate-50 py-16 md:py-24">
-        <nav class="mx-auto max-w-7xl py-4 text-sm text-slate-500">
-				<a href="/" class="hover:text-cyan-600">Home</a>
-				<span class="mx-2">/</span>
-				<span class="font-medium text-slate-900">FAQ</span>
-			</nav>
+		<nav class="mx-auto max-w-7xl py-4 text-sm text-slate-500">
+			<a href="/" class="hover:text-cyan-600">Home</a>
+			<span class="mx-2">/</span>
+			<span class="font-medium text-slate-900">FAQ</span>
+		</nav>
 		<div class="mx-auto max-w-4xl px-6 text-center">
 			<div
 				class="mb-6 inline-flex items-center justify-center rounded-full bg-cyan-100 p-3 text-cyan-600"

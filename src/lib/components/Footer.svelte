@@ -31,13 +31,13 @@
             </a>
           </li>
           <li>
-            <a href="/orthotics/Prefab" class="hover:text-cyan-500 transition-colors flex items-center group">
+            <a href="/orthoses/Prefab" class="hover:text-cyan-500 transition-colors flex items-center group">
               <ArrowRight class="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity text-cyan-500"/>
               Prefabricated Range
             </a>
           </li>
           <li>
-            <a href="/orthotics/Custom" class="hover:text-cyan-500 transition-colors flex items-center group">
+            <a href="/orthoses/Custom" class="hover:text-cyan-500 transition-colors flex items-center group">
               <ArrowRight class="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity text-cyan-500"/>
               Custom Prescription
             </a>

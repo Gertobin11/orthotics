@@ -3,6 +3,7 @@
 	import type { PageProps } from './$types.js';
 	import { importLibrary, setOptions } from '@googlemaps/js-api-loader';
 	import { CalendarClock, Mail, MapPin, Phone } from '@lucide/svelte';
+	import MetaTags from '$lib/components/MetaTags.svelte';
 
 	let { data }: PageProps = $props();
 
@@ -37,6 +38,11 @@
 	});
 </script>
 
+<MetaTags
+	title="Book an Appointment | Tralee Orthotics"
+	description="Arrange your full biomechanical assessment in Tralee, Co. Kerry. Contact Eddie O' Grady by phone (086-7700191) or email. Appointment only."
+/>
+
 <section class="bg-slate-50 py-16 md:py-32">
 	<div class="mx-auto mb-12 max-w-3xl px-6 text-center">
 		<div
@@ -65,7 +71,7 @@
 				</div>
 				<h3 class="mb-2 text-xl font-bold text-slate-900">Location</h3>
 				<p class="text-sm leading-relaxed text-slate-600">
-					Tralee OrthoticsS <br />
+					Tralee Orthotics <br />
 					36 Oakview, Brewery Road, <br />
 					Tralee, Co. Kerry, V92 HYEO
 				</p>

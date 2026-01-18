@@ -4,15 +4,31 @@
 	import { Phone } from '@lucide/svelte';
 
 	import type { PageProps } from './$types.ts';
+	import MetaTags from '$lib/components/MetaTags.svelte';
 
 	let { data }: PageProps = $props();
 
-	const productsData = () => data.products;
-	const categoryData = () => data.category;
+	let category = $derived(data.category);
+	const getCategory = () => category;
 
-	const products = productsData();
-	const category = categoryData();
+	let products = $derived(data.products);
+
+	let seoTitle = $state('Prefabricated Orthotics Range (€90) | Tralee Orthotics');
+
+	if (getCategory() === 'Prefab') {
+		seoTitle = 'Custom Prescription Orthotics Range (€400) | Tralee Orthotics';
+	}
+
+	let seoDesc = $state(
+		'Browse our full range of medical-grade prefabricated insoles. Available in low, medium, and high densities for immediate pain relief. Assessment and fitting included.'
+	);
+	if (getCategory() === 'Prefab') {
+		seoDesc =
+			'Explore our specialized custom orthotics for sports injuries and complex biomechanics. Precision-manufactured from 3D scans. €400 all-inclusive fee.';
+	}
 </script>
+
+<MetaTags title={seoTitle} description={seoDesc} />
 
 <div
 	class="bg-white font-sans text-slate-600"
@@ -27,7 +43,7 @@
 				<a href="/orthoses" class="hover:text-cyan-600">Orthoses</a>
 				<span class="mx-2">/</span>
 				<span class="font-medium text-slate-900 capitalize">
-					{#if category === 'Prefab'}
+					{#if getCategory() === 'Prefab'}
 						Prefabricated Range
 					{:else}
 						Custom Prescription
@@ -37,7 +53,7 @@
 
 			<div class="max-w-3xl">
 				<span class="my-2 block text-sm font-bold tracking-wider text-cyan-600 uppercase">
-					{#if category === 'Prefab'}
+					{#if getCategory() === 'Prefab'}
 						Off-The-Shelf Solutions
 					{:else}
 						Tralee Orthotics Bespoke
@@ -45,7 +61,7 @@
 				</span>
 
 				<h1 class="mb-6 text-4xl leading-tight font-bold text-slate-900 md:text-5xl">
-					{#if category === 'Prefab'}
+					{#if getCategory() === 'Prefab'}
 						Medical Grade <br class="hidden md:block" />
 						<span class="text-cyan-600">Prefabricated Orthotics.</span>
 					{:else}
@@ -55,7 +71,7 @@
 				</h1>
 
 				<p class="mb-8 text-lg leading-relaxed text-slate-600 md:text-xl">
-					{#if category === 'Prefab'}
+					{#if getCategory() === 'Prefab'}
 						High-quality, off-the-shelf support available in multiple densities. Price includes
 						professional fitting and immediate dispensing. Excellent for general correction and
 						comfort at an accessible price point (€90).
@@ -78,7 +94,7 @@
 			</div>
 
 			<div class="absolute top-1/2 right-0.5 hidden w-1/3 -translate-y-1/2 justify-center lg:flex">
-				{#if category === 'Prefab'}
+				{#if getCategory() === 'Prefab'}
 					<img
 						src="/prefab.png"
 						alt="Range of Bio Advanced Prefabricated Orthotics"
@@ -97,9 +113,11 @@
 
 	<main class="mx-auto mt-5 max-w-7xl pb-20 md:px-6">
 		<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-			{#each products as product}
-				<ProductCard {product} {category} />
-			{/each}
+			{#key products}
+				{#each products as product}
+					<ProductCard {product} {category} />
+				{/each}
+			{/key}
 		</div>
 	</main>
 </div>
