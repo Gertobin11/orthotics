@@ -19,9 +19,9 @@ export async function GET() {
 
 	const staticPages = [
 		'',
-		'/orthotics',
-		'/orthotics/Prefab',
-		'/orthotics/custom',
+		'/orthoses',
+		'/orthoses/Prefab',
+		'/orthoses/Custom',
 		'/faq',
 		'/contact'
 	];
@@ -53,7 +53,7 @@ export async function GET() {
 			.map(
 				(product: { category: string; slug: string }) => `
       <url>
-        <loc>${site}/orthotics/${product.category}/${product.slug}</loc>
+        <loc>${site}/orthoses/${product.category}/${product.slug}</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
       </url>
@@ -61,8 +61,7 @@ export async function GET() {
 			)
 			.join('')}
   </urlset>`;
-
-	// 4. Return the response
+  
 	return new Response(sitemap, {
 		headers: {
 			'Content-Type': 'application/xml',
