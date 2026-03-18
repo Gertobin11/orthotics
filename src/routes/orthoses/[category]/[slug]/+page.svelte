@@ -24,7 +24,7 @@
 		<span class="mx-2">/</span>
 		<a href={resolve("/orthoses")} class="hover:text-cyan-600">Orthoses</a>
 		<span class="mx-2">/</span>
-		<a href={resolve("/orthoses/{data.category}")} class="hover:text-cyan-600">{data.category}</a>
+		<a href={resolve(`/orthoses/${data.category}`)} class="hover:text-cyan-600">{data.category}</a>
 		<span class="mx-2">/</span>
 		<span class="font-medium text-slate-900">{orthotic.name}</span>
 	</nav>
