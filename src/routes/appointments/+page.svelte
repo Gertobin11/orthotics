@@ -4,11 +4,11 @@
 	import { importLibrary, setOptions } from '@googlemaps/js-api-loader';
 	import { CalendarClock, Mail, MapPin, Phone } from '@lucide/svelte';
 	import MetaTags from '$lib/components/MetaTags.svelte';
+	import { resolve } from '$app/paths';
 
 	let { data }: PageProps = $props();
 
 	let mapElement: HTMLDivElement;
-	let marker: google.maps.marker.AdvancedMarkerElement;
 
 	onMount(async () => {
 		setOptions({
@@ -28,7 +28,7 @@
 			mapId: 'create-game-map-id'
 		});
 
-		marker = new AdvancedMarkerElement({
+		 new AdvancedMarkerElement({
 			position: {
 				lat: 52.27408769525058,
 				lng: -9.698069969487184
@@ -45,7 +45,7 @@
 
 <section class="bg-slate-50 py-16 md:py-32">
     <nav class="mx-auto max-w-7xl py-4 text-sm text-slate-500">
-			<a href="/" class="hover:text-cyan-600">Home</a>
+			<a href={resolve("/")} class="hover:text-cyan-600">Home</a>
 			<span class="mx-2">/</span>
 			<span class="font-medium text-slate-900">Appointments</span>
 		</nav>

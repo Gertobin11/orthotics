@@ -35,11 +35,13 @@ export const load: PageServerLoad = async (event) => {
     }
   }`;
 
-    const products: types.OrthoticProduct[] = await client.fetch(query, {
+    let products: types.OrthoticProduct[] = await client.fetch(query, {
         category
     });
 
+    const productSet = new Set(products)
 
+    products = Array.from(productSet)
 
     return {
         products, category

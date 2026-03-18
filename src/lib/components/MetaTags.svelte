@@ -4,7 +4,7 @@
 
 	export let title: string = 'Tralee Orthotics | Advanced Foot Care & Precision Biomechanics.';
 	export let description: string =
-		'Expert biomechanical assessment and foot care in Tralee, Co. Kerry. We provide medical-grade prefabricated insoles (€90) and bespoke 3D-scanned custom orthotics (€400). Assessment and fitting included.';
+		'Expert biomechanical assessment and foot care in Tralee, Co. Kerry. We provide medical-grade prefabricated insoles and bespoke 3D-scanned custom orthotics. Assessment and fitting included.';
 	export let image: string = 'orthoses-banner.png';
 	export let keywords: string[] = [];
 

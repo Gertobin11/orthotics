@@ -1,29 +1,15 @@
 <script>
 	import MetaTags from '$lib/components/MetaTags.svelte';
-	import { Phone, ArrowRight, Truck, BadgeQuestionMark, CircleCheckBig } from '@lucide/svelte';
+	import { Phone, ArrowRight, Truck} from '@lucide/svelte';
 	import { fade } from 'svelte/transition';
 
-	const categories = [
-		{
-			name: 'Prefabricated Orthotics',
-			price: 90,
-			slug: 'Prefab',
-			summary:
-				'High-quality, off-the-shelf support. Corrects over-pronation/supination. Fitting included.'
-		},
-		{
-			name: 'Custom Prescription',
-			price: 400,
-			slug: 'Custom',
-			summary:
-				'Bespoke medical devices made from 3D scans. Full gait analysis & biomechanical assessment included.'
-		}
-	];
+	import { categoryPriceState } from '$lib/state/category-price.svelte';
+	import { resolve } from '$app/paths';
 
 </script>
 
 <MetaTags
-	title="Orthotics Range Tralee | Custom & Prefabricated Supports" description="Choose the right support for your feet. We offer medical-grade prefabricated insoles (€90) and bespoke 3D-scanned custom orthotics (€400). Full assessment and fitting included."
+	title="Orthotics Range Tralee | Custom & Prefabricated Supports" description="Choose the right support for your feet. We offer medical-grade prefabricated insoles and bespoke 3D-scanned custom orthotics. Full assessment and fitting included."
 />
 
 <div
@@ -34,7 +20,7 @@
 	<section class="relative border-b border-gray-100 bg-slate-100">
 		<div class="relative mx-auto max-w-7xl px-6 py-16 md:py-24">
 			<nav class="mx-auto max-w-7xl py-4 text-sm text-slate-500">
-				<a href="/" class="hover:text-cyan-600">Home</a>
+				<a href={resolve("/")} class="hover:text-cyan-600">Home</a>
 				<span class="mx-2">/</span>
 				<span class="font-medium text-slate-900">Orthoses</span>
 			</nav>
@@ -73,22 +59,22 @@
 
 	<section class="relative z-10 mx-auto -mt-10 max-w-7xl px-6 py-16">
 		<div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-			{#each categories as cat}
+			{#each categoryPriceState.categories as cat (cat.name)}
 				<a
-					href="/orthoses/{cat.slug}"
+					href={resolve(`/orthoses/${cat.name}`)}
 					class="group relative flex h-full flex-col items-start rounded-2xl border border-gray-100 bg-slate-50 p-8 shadow-sm transition-all duration-300 hover:shadow-xl"
 				>
 					<div
 						class="absolute top-6 right-6 rounded-full bg-cyan-600 px-4 py-2 font-bold text-white"
 					>
-						€{cat.price}
+						from €{cat.lowestPrice}
 					</div>
 					<div
 						class="mb-6 flex h-16 w-16 items-center justify-center rounded-xl bg-cyan-50 text-cyan-600 transition-colors group-hover:bg-cyan-600 group-hover:text-white"
 					>
 						<ArrowRight />
 					</div>
-					<h2 class="mb-2 text-2xl font-bold text-slate-900">{cat.name}</h2>
+					<h2 class="mb-2 text-2xl font-bold text-slate-900">{cat.title}</h2>
 					<p class="mb-6 text-slate-500">{cat.summary}</p>
 					<span
 						class="mt-auto inline-flex items-center font-semibold text-cyan-600 transition-transform group-hover:translate-x-1"

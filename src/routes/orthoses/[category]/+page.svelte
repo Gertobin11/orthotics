@@ -5,6 +5,8 @@
 
 	import type { PageProps } from './$types.ts';
 	import MetaTags from '$lib/components/MetaTags.svelte';
+	import { categoryPriceState } from '$lib/state/category-price.svelte';
+	import { resolve } from '$app/paths';
 
 	let { data }: PageProps = $props();
 
@@ -12,20 +14,29 @@
 	const getCategory = () => category;
 
 	let products = $derived(data.products);
+	let customPricePoint = $derived(categoryPriceState.getCategoryByName('Custom'));
+	let prefabPricePoint = $derived(categoryPriceState.getCategoryByName('Prefab'));
 
-	let seoTitle = $state('Prefabricated Orthotics Range (€90) | Tralee Orthotics');
+    const getCustomPrice  = () => customPricePoint?.lowestPrice || 400
+    const getPrefabPrice = () => prefabPricePoint?.lowestPrice || 100
 
-	if (getCategory() === 'Prefab') {
-		seoTitle = 'Custom Prescription Orthotics Range (€400) | Tralee Orthotics';
+	let seoTitle = $state('');
+	let seoDesc = $state('');
+
+	const currentCategory = getCategory();
+
+	switch (currentCategory) {
+		case 'Prefab':
+			seoTitle = `Prefabricated Orthotics Range from  ${getPrefabPrice()} | Tralee Orthotics`;
+			seoDesc =
+				'Browse our full range of medical-grade prefabricated insoles. Available in low, medium, and high densities for immediate pain relief. Assessment and fitting included.';
+                break;
+		case 'Custom':
+			seoDesc =
+				`Explore our specialized custom orthotics for sports injuries and complex biomechanics. Precision-manufactured from 3D scans. €${getCustomPrice()} all-inclusive fee.`;
+			seoTitle = `Custom Prescription Orthotics Range from  ${getCustomPrice()}  | Tralee Orthotics`;
 	}
 
-	let seoDesc = $state(
-		'Browse our full range of medical-grade prefabricated insoles. Available in low, medium, and high densities for immediate pain relief. Assessment and fitting included.'
-	);
-	if (getCategory() === 'Prefab') {
-		seoDesc =
-			'Explore our specialized custom orthotics for sports injuries and complex biomechanics. Precision-manufactured from 3D scans. €400 all-inclusive fee.';
-	}
 </script>
 
 <MetaTags title={seoTitle} description={seoDesc} />
@@ -38,9 +49,9 @@
 	<section class="relative border-b border-gray-100 bg-slate-100">
 		<div class="relative mx-auto max-w-7xl px-6 py-16 md:py-24">
 			<nav class="mx-auto max-w-7xl py-4 text-sm text-slate-500">
-				<a href="/" class="hover:text-cyan-600">Home</a>
+				<a href={resolve("/")} class="hover:text-cyan-600">Home</a>
 				<span class="mx-2">/</span>
-				<a href="/orthoses" class="hover:text-cyan-600">Orthoses</a>
+				<a href={resolve("/orthoses")} class="hover:text-cyan-600">Orthoses</a>
 				<span class="mx-2">/</span>
 				<span class="font-medium text-slate-900 capitalize">
 					{#if getCategory() === 'Prefab'}
@@ -74,11 +85,11 @@
 					{#if getCategory() === 'Prefab'}
 						High-quality, off-the-shelf support available in multiple densities. Price includes
 						professional fitting and immediate dispensing. Excellent for general correction and
-						comfort at an accessible price point (€90).
+						comfort at an accessible price point from <span class="text-cyan-600 font-semibold"> €{getPrefabPrice()}</span>.
 					{:else}
 						Individually fabricated from 3D scans of your feet using the most modern technology.
 						Includes full biomechanical assessment, gait analysis, and fitting. The gold standard
-						for treating complex foot pain and injury recovery (€400).
+						for treating complex foot pain and injury recovery from <span class="text-cyan-600 font-semibold"> €{getCustomPrice()}</span>.
 					{/if}
 				</p>
 
@@ -114,7 +125,7 @@
 	<main class="mx-auto mt-5 max-w-7xl pb-20 md:px-6">
 		<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
 			{#key products}
-				{#each products as product}
+				{#each products as product (product.slug)}
 					<ProductCard {product} {category} />
 				{/each}
 			{/key}

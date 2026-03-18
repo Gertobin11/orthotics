@@ -1,6 +1,8 @@
 <script>
+	import { resolve } from '$app/paths';
 	import MetaTags from '$lib/components/MetaTags.svelte';
-	import { Phone, ArrowRight, Truck, CheckCircle2, Package, ScanLine } from '@lucide/svelte';
+	import { categoryPriceState } from '$lib/state/category-price.svelte';
+	import { Phone, ArrowRight, Truck, CircleCheckBig, Package, ScanLine } from '@lucide/svelte';
 	import { fly } from 'svelte/transition';
 
 	const conditions = [
@@ -14,6 +16,10 @@
 		'Shin Splints',
 		'Metatarsalgia'
 	];
+
+    const customPricePoint = $derived(categoryPriceState.getCategoryByName("Custom"));
+    const prefabPricePoint = $derived(categoryPriceState.getCategoryByName("Prefab"));
+    
 </script>
 
 <MetaTags />
@@ -52,7 +58,7 @@
 							Call: 086 770 0191
 						</a>
 						<a
-							href="/orthoses"
+							href={resolve("/orthoses")}
 							class="flex items-center justify-center rounded-xl border border-slate-600 px-8 py-4 text-lg font-bold text-white transition-all hover:bg-white/10"
 						>
 							View Range
@@ -78,7 +84,7 @@
 	<section id="products" class="relative z-10 -mt-10 px-6 pb-20">
 		<div class="mx-auto grid max-w-7xl grid-cols-1 gap-8 md:grid-cols-2">
 			<a
-				href="/orthoses/Prefab"
+				href={resolve("/orthoses/Prefab")}
 				class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 p-8 shadow-xl transition-all hover:border-cyan-500 hover:shadow-2xl"
 			>
 				<div
@@ -88,7 +94,7 @@
 				</div>
 				<h2 class="mb-2 text-3xl font-bold text-slate-900">Prefabricated Orthoses</h2>
 				<p class="mb-4 text-2xl font-bold text-cyan-600">
-					€90 <span class="text-sm font-normal text-slate-400">/ All inclusive</span>
+					€{prefabPricePoint?.lowestPrice || 100} <span class="text-sm font-normal text-slate-400">/ All inclusive</span>
 				</p>
 				<p class="mb-8 grow text-slate-600">
 					High-quality off-the-shelf supports. Includes full assessment and fitting. Excellent for
@@ -102,7 +108,7 @@
 			</a>
 
 			<a
-				href="/orthoses/Custom"
+				href={resolve("/orthoses/Custom")}
 				class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 p-8 shadow-xl transition-all hover:border-slate-900 hover:shadow-2xl"
 			>
 				<div
@@ -112,7 +118,7 @@
 				</div>
 				<h2 class="mb-2 text-3xl font-bold text-slate-900">Custom Prescription</h2>
 				<p class="mb-4 text-2xl font-bold text-slate-900">
-					€400 <span class="text-sm font-normal text-slate-400">/ All inclusive</span>
+					€{customPricePoint?.lowestPrice ?? 420} <span class="text-sm font-normal text-slate-400">/ All inclusive</span>
 				</p>
 				<p class="mb-8 grow text-slate-600">
 					Bespoke devices manufactured from 3D foot scans and gait analysis. The gold standard for
@@ -178,16 +184,16 @@
 			<div class="rounded-3xl bg-slate-50 p-8 md:p-10">
 				<h3 class="mb-8 text-xl font-bold text-slate-900">Conditions We Treat</h3>
 				<ul class="grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2">
-					{#each conditions as item}
+					{#each conditions as item (item)}
 						<li class="flex items-start">
-							<CheckCircle2 class="mt-0.5 mr-3 h-5 w-5 shrink-0 text-cyan-500" />
+							<CircleCheckBig class="mt-0.5 mr-3 h-5 w-5 shrink-0 text-cyan-500" />
 							<span class="text-sm font-medium text-slate-700">{item}</span>
 						</li>
 					{/each}
 				</ul>
 				<div class="mt-8 border-t border-slate-200 pt-8">
 					<a
-						href="/faq"
+						href={resolve("/faq")}
 						class="flex w-full items-center justify-center rounded-lg border border-slate-300 bg-white py-3 font-bold text-slate-700 transition-colors hover:bg-slate-50 hover:text-cyan-600"
 					>
 						Read our Frequently Asked Questions

@@ -3,8 +3,10 @@
 	import { fade } from 'svelte/transition';
 	import Footer from '$lib/components/Footer.svelte';
 	import ConsentContainer from '$lib/components/ConsentContainer.svelte';
+	import { categoryPriceState } from '$lib/state/category-price.svelte';
+	import { resolve } from '$app/paths';
 
-	let { children } = $props();
+	let { data, children } = $props();
 
 	let isMobileMenuOpen = $state(false);
 
@@ -17,6 +19,12 @@
 	function closeMobileMenu() {
 		isMobileMenuOpen = false;
 	}
+
+    $effect.pre(() => {
+        if (data.summaries) {
+            categoryPriceState.init(data.summaries);
+        }
+    });
 </script>
 
 <svelte:head>
@@ -35,20 +43,20 @@
 				<div class="hidden w-full justify-between text-slate-800 md:flex">
 					<div class="=flex items-center justify-center">
 						<a
-							href="/"
+							href={resolve("/")}
 							class="px-3 py-2 text-3xl font-semibold text-cyan-600 hover:text-cyan-800"
 							><span class="text-white">Tralee </span> Orthotics</a
 						>
 					</div>
 					<div class="flex items-center justify-end gap-6">
-						<a href="/" class="text-xl font-medium text-white hover:text-cyan-500"
+						<a href={resolve("/")} class="text-xl font-medium text-white hover:text-cyan-500"
 							>Home</a
 						>
-						<a href="/orthoses" class="text-xl font-medium text-white hover:text-cyan-500"
+						<a href={resolve("/orthoses")} class="text-xl font-medium text-white hover:text-cyan-500"
 							>Orthoses</a
 						>
-						<a href="/faq" class="text-xl font-medium text-white hover:text-cyan-500">FAQ</a>
-						<a href="/appointments" class="text-xl font-medium text-white hover:text-cyan-500"
+						<a href={resolve("/faq")} class="text-xl font-medium text-white hover:text-cyan-500">FAQ</a>
+						<a href={resolve("/appointments")} class="text-xl font-medium text-white hover:text-cyan-500"
 							>Appointments</a
 						>
 					</div>
@@ -57,7 +65,7 @@
 				<!-- Mobile Burger Menu Button -->
 				<div class="z-50 flex w-full justify-between md:hidden">
 					<a
-						href="/"
+						href={resolve("/")}
 						class="hover:text-primary-100 px-3 py-2 text-3xl font-semibold text-cyan-600 hover:text-cyan-800"
 						><span class="text-white">Tralee </span> Orthotics</a
 					>
@@ -115,25 +123,25 @@
 					<hr class="text-cyan-500" />
                     <a
 						onclick={closeMobileMenu}
-						href="/"
+						href={resolve("/")}
 						class="title text-white hover:text-cyan-500 block rounded-md px-3 py-2 text-2xl font-medium"
 						>Home</a
 					>
 					<a
 						onclick={closeMobileMenu}
-						href="/orthoses"
+						href={resolve("/orthoses")}
 						class="title text-white hover:text-cyan-500 block rounded-md px-3 py-2 text-2xl font-medium"
 						>Orthoses</a
 					>
 					<a
 						onclick={closeMobileMenu}
-						href="/faq"
+						href={resolve("/faq")}
 						class="title text-white hover:text-cyan-500 block rounded-md px-3 py-2 text-2xl font-medium"
 						>FAQ</a
 					>
 					<a
 						onclick={closeMobileMenu}
-						href="/appointments"
+						href={resolve("/appointments")}
 						class="title text-white hover:text-cyan-500 block rounded-md px-3 py-2 text-2xl font-medium"
 						>Appointments</a
 					>

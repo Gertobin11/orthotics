@@ -2,6 +2,7 @@
 	import { fly } from 'svelte/transition';
 	import type { PageProps } from './$types.ts';
 	import MetaTags from '$lib/components/MetaTags.svelte';
+	import { resolve } from '$app/paths';
 
 	let { data }: PageProps = $props();
 
@@ -9,9 +10,6 @@
 
 	const orthotic = orthoticData();
 
-	const formatSizing = (text: string) => {
-		return text.split('\n').filter((line) => line.trim() !== '');
-	};
 </script>
 
 <MetaTags
@@ -22,11 +20,11 @@
 
 <div class="min-h-screen bg-gray-100 pt-16 font-sans text-slate-800 selection:bg-blue-100">
 	<nav class="mx-auto max-w-7xl px-6 py-4 text-sm text-slate-500">
-		<a href="/" class="hover:text-cyan-600">Home</a>
+		<a href={resolve("/")} class="hover:text-cyan-600">Home</a>
 		<span class="mx-2">/</span>
-		<a href="/orthoses" class="hover:text-cyan-600">Orthoses</a>
+		<a href={resolve("/orthoses")} class="hover:text-cyan-600">Orthoses</a>
 		<span class="mx-2">/</span>
-		<a href="/orthoses/{data.category}" class="hover:text-cyan-600">{data.category}</a>
+		<a href={resolve("/orthoses/{data.category}")} class="hover:text-cyan-600">{data.category}</a>
 		<span class="mx-2">/</span>
 		<span class="font-medium text-slate-900">{orthotic.name}</span>
 	</nav>
@@ -112,7 +110,7 @@
 
 				<div class="prose prose-sm max-w-none leading-relaxed text-slate-600">
 					{#if orthotic.category === 'Prefab'}
-						{#each orthotic.details.description.split('\n') as paragraph}
+						{#each orthotic.details.description.split('\n') as paragraph , i (i) }
 							{#if paragraph.includes('SIZING GUIDE:')}{:else if paragraph.trim().length > 0}
 								<p>{paragraph}</p>
 							{/if}

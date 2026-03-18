@@ -3,13 +3,28 @@
 	import { fade } from 'svelte/transition';
 	import type { PageProps } from './$types.js';
 	import MetaTags from '$lib/components/MetaTags.svelte';
+	import { resolve } from '$app/paths';
+	import DOMPurify from 'isomorphic-dompurify';
 
 	let { data }: PageProps = $props();
+
+    const tt = typeof window !== 'undefined' && window.trustedTypes;
+
+const escapeHTMLPolicy = tt 
+  ? tt.createPolicy("myEscapePolicy", {
+      createHTML: (html: string) => {
+        
+        return DOMPurify.sanitize(html)
+      }
+    })
+  : { createHTML: (s: string) => s }; 
+
+  const getSafeContent = (data: string) =>  escapeHTMLPolicy.createHTML(data)
 </script>
 
 <MetaTags
 	title="Orthotic FAQs & Pricing | Tralee Orthotics"
-	description="Common questions about foot care in Kerry. Learn the difference between Prefab (€90) and Custom (€400) insoles, see our transparent pricing, and read about break-in periods."
+	description="Common questions about foot care in Kerry. Learn the difference between Prefab and Custom  insoles, see our transparent pricing, and read about break-in periods."
 />
 
 <div
@@ -19,7 +34,7 @@
 >
 	<section class="border-b border-slate-200 bg-slate-50 py-16 md:py-24">
 		<nav class="mx-auto max-w-7xl py-4 text-sm text-slate-500">
-			<a href="/" class="hover:text-cyan-600">Home</a>
+			<a href={resolve("/")} class="hover:text-cyan-600">Home</a>
 			<span class="mx-2">/</span>
 			<span class="font-medium text-slate-900">FAQ</span>
 		</nav>
@@ -36,7 +51,7 @@
 
 	<section class="mx-auto max-w-3xl px-6 py-16">
 		<div class="space-y-4">
-			{#each data.faqs as item, index}
+			{#each data.faqs as item (item)}
 				<details
 					class="group overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-colors duration-300 hover:border-cyan-400"
 				>
@@ -52,7 +67,7 @@
 					</summary>
 
 					<div class="prose max-w-none px-6 pb-6 leading-relaxed text-slate-600 prose-slate">
-						{@html item.answer}
+						{@html getSafeContent(item.answer)}
 					</div>
 				</details>
 			{/each}
